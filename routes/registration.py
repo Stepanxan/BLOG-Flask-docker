@@ -38,5 +38,4 @@ def registration():
                 flash("Користувач з таким email вже існує", category='error')
                 return redirect(url_for('registration'))
     else:
-        print(url_for('login'))
         return render_template('registration.html')

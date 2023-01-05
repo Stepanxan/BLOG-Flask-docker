@@ -4,7 +4,7 @@
 User_id:{{user_id}}
 {% endblock %}
 
-{% block menu %}
+{% block body %}
 <head>
   <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='/css/user_page.css' )}}">
 </head>
@@ -23,14 +23,6 @@ User_id:{{user_id}}
     </div>
   </div>
 
-  <div class="button_user_page">
-  <div id="create-post">
-    <a class="button_menu" href="/users/create-post" type='submit' >Створити пост</a>
-  </div>
-  <div id="my_post">
-    <a class="button_menu" href="/users/my-post" type='submit' >Мої пости</a>
-  </div>
-  </div>
 </body>
 {% endblock %}
 <code></code>

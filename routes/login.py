@@ -35,7 +35,7 @@ def login():
 def logout():
     flash("Ви вийшли з акаунта", category='success')
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('main_page'))
 
 @app.after_request
 def redirect_to_singin(response):

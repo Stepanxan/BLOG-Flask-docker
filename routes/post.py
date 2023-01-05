@@ -58,3 +58,49 @@ def my_post():
 def post_detail(post_id):
     detail = Posts.query.get(post_id)
     return render_template("post_detail.html", detail=detail)
+
+
+@app.route("/users/my-post/post:<post_id>/update", methods=["GET", "POST"])
+@login_required
+def update_post(post_id):
+    detail = Posts.query.get(post_id)
+    if request.method == 'POST':
+        detail.topic = request.form['topic']
+        detail.text = request.form['text']
+        try:
+            db.session.commit()
+            flash("Пост успішно редаговано", category='success')
+            return redirect(url_for("my_post"))
+        except:
+            flash("При редагуванні сталась помилка", category='error')
+            return redirect(url_for("update_post"))
+
+    else:
+        return render_template('update_post.html', detail=detail)
+
+
+@app.route('/users/my-post/post:<post_id>/delete')
+@login_required
+def delete_post(post_id):
+    post = Posts.query.get_or_404(post_id)
+    try:
+        db.session.delete(post)
+        db.session.commit()
+        flash("Пост видалено успішно", category='success')
+        return redirect('/users/my-post')
+    except:
+        flash("Помилка видалення")
+        return redirect('/users/my-post/post:<post_id>')
+
+
+@app.route('/post:<post_id>/<action>')
+@login_required
+def like_action(post_id, action):
+    post = Posts.query.filter_by(post_id=post_id).first_or_404()
+    if action == 'like':
+        current_user.like_post(post)
+        db.session.commit()
+    if action == 'unlike':
+        current_user.unlike_post(post)
+        db.session.commit()
+    return redirect(request.referrer)

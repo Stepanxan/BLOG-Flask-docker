@@ -13,7 +13,7 @@
   {% for cat, msg in get_flashed_messages(True) %}
   <div class="flash {{cat}}">{{msg}}</div>
   {% endfor %}
-  <form action="/users/new" method="post">
+  <form action="/registration" method="post">
 
     <div class="conteiner">
       <div class="card">
@@ -40,10 +40,10 @@
 
         <div class="inputBox">
           <input type="password" name="password2" id="password2" required="required">
-          <span> Password2 </span>
+          <span> Repeat password </span>
         </div>
 
-        <a type='submit' href="{{ url_for ('registration') }}"><button>Registration</button></a>
+        <button type='submit' class="button" >Registration</button>
 
 
       </div>
